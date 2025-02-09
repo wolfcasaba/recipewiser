@@ -6,6 +6,7 @@ export default function ShoppingList() {
   const { items, removeItem, clearList } = useShoppingListStore();
   const [optimizedList, setOptimizedList] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [priceData, setPriceData] = useState([]);
 
   const optimizeList = async () => {
     const res = await fetch("/api/shopping-list/optimize", {
@@ -42,6 +43,30 @@ export default function ShoppingList() {
     }
   };
 
+  const comparePrices = async () => {
+    if (items.length === 0) {
+      alert("Your shopping list is empty!");
+      return;
+    }
+
+    setLoading(true);
+    
+    const res = await fetch("/api/shopping-list/compare-prices", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items }),
+    });
+
+    const data = await res.json();
+    setLoading(false);
+
+    if (data.prices) {
+      setPriceData(data.prices);
+    } else {
+      alert("Failed to fetch prices. Try again later.");
+    }
+  };
+
   return (
     <div className="p-6 max-w-lg mx-auto">
       <h1 className="text-2xl font-bold mb-4">🛒 Grocery Shopping List</h1>
@@ -72,16 +97,30 @@ export default function ShoppingList() {
           <button onClick={clearList} className="mt-4 bg-red-500 text-white px-4 py-2 rounded">
             Clear List
           </button>
+          <button onClick={comparePrices} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
+            Compare Prices
+          </button>
+          <button onClick={optimizeList} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
+            Optimize List with AI
+          </button>
         </>
       )}
 
-      {items.length > 0 && (
-        <button onClick={optimizeList} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
-          Optimize List with AI
-        </button>
-      )}
-
       {optimizedList && <p className="mt-4">Optimized List: {optimizedList}</p>}
+
+      {priceData.length > 0 && (
+        <div className="mt-6">
+          <h2 className="text-xl font-semibold">🛍 Price Comparison</h2>
+          <ul className="mt-2 space-y-2">
+            {priceData.map((item, index) => (
+              <li key={index} className="p-2 bg-gray-200 rounded">
+                <strong>{item.name}</strong><br />
+                🏪 Walmart: ${item.walmart} | 🛒 Amazon: ${item.amazon} | 🚛 Instacart: ${item.instacart}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

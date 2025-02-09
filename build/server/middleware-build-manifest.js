@@ -1,1 +1,30 @@
-self.__BUILD_MANIFEST={polyfillFiles:["static/chunks/polyfills-42372ed130431b0a.js"],devFiles:[],ampDevFiles:[],lowPriorityFiles:[],rootMainFiles:[],rootMainFilesTree:{},pages:{"/_app":["static/chunks/webpack-4c9cb5aceec3788e.js","static/chunks/framework-b96261d959dd50e7.js","static/chunks/main-519557a570a94f97.js","static/chunks/pages/_app-04e4c8c4a89fd8ba.js"],"/_error":["static/chunks/webpack-4c9cb5aceec3788e.js","static/chunks/framework-b96261d959dd50e7.js","static/chunks/main-519557a570a94f97.js","static/chunks/pages/_error-a3429c01c508f575.js"],"/meal-planner":["static/chunks/webpack-4c9cb5aceec3788e.js","static/chunks/framework-b96261d959dd50e7.js","static/chunks/main-519557a570a94f97.js","static/chunks/627-8c21c9404bceafc4.js","static/chunks/pages/meal-planner-b16195dd2f5ffe11.js"],"/shopping-list":["static/chunks/webpack-4c9cb5aceec3788e.js","static/chunks/framework-b96261d959dd50e7.js","static/chunks/main-519557a570a94f97.js","static/chunks/pages/shopping-list-f500468b363dcd2e.js"],"/upload":["static/chunks/webpack-4c9cb5aceec3788e.js","static/chunks/framework-b96261d959dd50e7.js","static/chunks/main-519557a570a94f97.js","static/chunks/pages/upload-a750631b03cb70f1.js"]},ampFirstPages:[]},self.__BUILD_MANIFEST.lowPriorityFiles=["/static/"+process.env.__NEXT_BUILD_ID+"/_buildManifest.js",,"/static/"+process.env.__NEXT_BUILD_ID+"/_ssgManifest.js"];
+self.__BUILD_MANIFEST = {
+  "polyfillFiles": [
+    "static/chunks/polyfills.js"
+  ],
+  "devFiles": [
+    "static/chunks/react-refresh.js"
+  ],
+  "ampDevFiles": [],
+  "lowPriorityFiles": [],
+  "rootMainFiles": [],
+  "rootMainFilesTree": {},
+  "pages": {
+    "/_app": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/_app.js"
+    ],
+    "/_error": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/_error.js"
+    ]
+  },
+  "ampFirstPages": []
+};
+self.__BUILD_MANIFEST.lowPriorityFiles = [
+"/static/" + process.env.__NEXT_BUILD_ID + "/_buildManifest.js",
+,"/static/" + process.env.__NEXT_BUILD_ID + "/_ssgManifest.js",
+
+];

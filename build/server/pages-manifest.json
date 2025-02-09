@@ -1,1 +1,5 @@
-{"/_app":"pages/_app.js","/_error":"pages/_error.js","/api/meal-planner/generate":"pages/api/meal-planner/generate.js","/api/recipes/search":"pages/api/recipes/search.js","/api/recipes/upload":"pages/api/recipes/upload.js","/api/shopping-list/optimize":"pages/api/shopping-list/optimize.js","/api/shopping-list/order":"pages/api/shopping-list/order.js","/shopping-list":"pages/shopping-list.html","/meal-planner":"pages/meal-planner.html","/upload":"pages/upload.html","/_document":"pages/_document.js","/404":"pages/404.html"}
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js"
+}
