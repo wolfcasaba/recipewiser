@@ -1,0 +1,63 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+	"git.confirmSync": false,
+	"git.autofetch": true,
+	"deepsourcecorp.deepsource-vscode": {},
+	"settingsSync.ignoredExtensions": [],
+	"deepsource.highlightAffectedLines": false,
+	"deepsource.installationUrl": "https://app.deepsource.com",
+	"workbench.startupEditor": "none",
+	"bazel.buildifierFixOnFormat": true,
+	"bazel.trace.server": "verbose",
+	"bazel.enableCodeLens": true,
+	"workbench.action.tasks.runTask": {},
+	"workbench.action.tasks.configureTaskRunner": {},
+	"cmake.pinnedCommands": [],
+	"jdk.jdkhome": "c:\\Users\\kcsab\\Desktop\\recipewiser 1.1\\components\\OpenJDK-23",
+	"codesonar.installDir": "",
+	"codesonar.hubAddress": "",
+	"settingsSync.ignoredSettings": [
+		"codesonar.authenticationMode"
+	],
+	"cmake.additionalCompilerSearchDirs": [],
+	"workbench.editorAssociations": {
+		"*.woff2": "default"
+	},
+	"redhat.telemetry.enabled": true,
+	"version": "0.2.0",
+	"files.autoSave": "afterDelay",
+	"php.debug.executablePath": ""
+}
