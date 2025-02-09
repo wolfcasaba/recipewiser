@@ -1,6 +1,7 @@
 import { useShoppingListStore } from "../store/shoppingListStore";
 import { TrashIcon } from "@heroicons/react/solid";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function ShoppingList() {
   const { items, removeItem, clearList } = useShoppingListStore();
@@ -9,6 +10,7 @@ export default function ShoppingList() {
   const [optimizedList, setOptimizedList] = useState(null);
   const [loading, setLoading] = useState(false);
   const [priceData, setPriceData] = useState([]);
+  const [email, setEmail] = useState("");
 
   const optimizeList = async () => {
     const res = await fetch("/api/shopping-list/optimize", {
@@ -93,6 +95,50 @@ export default function ShoppingList() {
     }
   };
 
+  const trackPrices = async () => {
+    if (items.length === 0) {
+      alert("Your shopping list is empty!");
+      return;
+    }
+
+    setLoading(true);
+    
+    const res = await fetch("/api/shopping-list/track-prices", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items }),
+    });
+
+    const data = await res.json();
+    setLoading(false);
+
+    if (data.prices) {
+      setPriceData(data.prices);
+    } else {
+      alert("Failed to fetch real-time prices. Try again later.");
+    }
+  };
+
+  const subscribeToAlerts = async () => {
+    if (!email.includes("@")) {
+      alert("Please enter a valid email.");
+      return;
+    }
+
+    const res = await fetch("/api/price-alerts/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+
+    if (res.ok) {
+      toast.success("✅ Subscribed to weekly price alerts!", { position: toast.POSITION.TOP_RIGHT });
+      setEmail("");
+    } else {
+      toast.error("❌ Subscription failed. Try again later.");
+    }
+  };
+
   return (
     <div className="p-6 max-w-lg mx-auto">
       <h1 className="text-2xl font-bold mb-4">🛒 Grocery Shopping List</h1>
@@ -143,6 +189,9 @@ export default function ShoppingList() {
           <button onClick={optimizeList} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
             Optimize List with AI
           </button>
+          <button onClick={trackPrices} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
+            Track Real-Time Prices
+          </button>
         </>
       )}
 
@@ -168,6 +217,20 @@ export default function ShoppingList() {
           </ul>
         </div>
       )}
+
+      <div className="mt-6">
+        <h1 className="text-2xl font-bold mb-4">📩 Subscribe to Price Drop Alerts</h1>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full p-2 border rounded"
+          placeholder="Enter your email"
+        />
+        <button onClick={subscribeToAlerts} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
+          Subscribe
+        </button>
+      </div>
     </div>
   );
 }
