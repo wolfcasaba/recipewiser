@@ -4,6 +4,8 @@ import { useState } from "react";
 
 export default function ShoppingList() {
   const { items, removeItem, clearList } = useShoppingListStore();
+  const [budget, setBudget] = useState("");
+  const [optimizedPlan, setOptimizedPlan] = useState("");
   const [optimizedList, setOptimizedList] = useState(null);
   const [loading, setLoading] = useState(false);
   const [priceData, setPriceData] = useState([]);
@@ -67,6 +69,30 @@ export default function ShoppingList() {
     }
   };
 
+  const optimizeBudget = async () => {
+    if (!budget || parseFloat(budget) <= 0) {
+      alert("Please enter a valid budget amount.");
+      return;
+    }
+
+    setLoading(true);
+
+    const res = await fetch("/api/meal-planner/optimize-budget", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ budget, shoppingList: items }),
+    });
+
+    const data = await res.json();
+    setLoading(false);
+
+    if (data.optimizedPlan) {
+      setOptimizedPlan(data.optimizedPlan);
+    } else {
+      alert("Failed to optimize budget. Try again later.");
+    }
+  };
+
   return (
     <div className="p-6 max-w-lg mx-auto">
       <h1 className="text-2xl font-bold mb-4">🛒 Grocery Shopping List</h1>
@@ -88,6 +114,20 @@ export default function ShoppingList() {
 
       {items.length > 0 && (
         <>
+          <div className="mt-4">
+            <label className="block font-semibold">💰 Enter Budget ($):</label>
+            <input
+              type="number"
+              value={budget}
+              onChange={(e) => setBudget(e.target.value)}
+              className="w-full p-2 border rounded"
+              placeholder="E.g. 50"
+            />
+          </div>
+
+          <button onClick={optimizeBudget} className="mt-4 bg-green-500 text-white px-4 py-2 rounded">
+            Optimize Budget with AI
+          </button>
           <button onClick={() => orderGroceries("instacart")} className="mt-4 bg-green-500 text-white px-4 py-2 rounded">
             Order with Instacart
           </button>
@@ -104,6 +144,13 @@ export default function ShoppingList() {
             Optimize List with AI
           </button>
         </>
+      )}
+
+      {optimizedPlan && (
+        <div className="mt-6 p-4 bg-gray-200 rounded">
+          <h2 className="text-xl font-semibold">💡 AI Budget Optimization Suggestions:</h2>
+          <p>{optimizedPlan}</p>
+        </div>
       )}
 
       {optimizedList && <p className="mt-4">Optimized List: {optimizedList}</p>}
