@@ -15,5 +15,11 @@
     "react-query": "^3.39.3",
     "tailwindcss": "^4.0.5",
     "zustand": "^5.0.3"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   }
 }
